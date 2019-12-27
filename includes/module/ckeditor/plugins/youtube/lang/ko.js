@@ -1,0 +1,23 @@
+CKEDITOR.plugins.setLang('youtube', 'ko', {
+	button : '유투브 비디오 삽입',
+	title : '유투브 비디오 삽입',
+	txtEmbed : '공유 소스코드를 여기 붙여넣으세요.',
+	txtUrl : '유투브 비디오 URL 입력',
+	txtWidth : '가로',
+	txtHeight : '세로',
+	chkRelated : '유투브 제안 비디오들을 재생 후 보여주기',
+	txtStartAt : '(ss or mm:ss or hh:mm:ss) 에서 영상시작',
+	chkPrivacy : '보안 강화 모드 켜기',
+	chkOlderCode : '오래된 공유 소스코드 사용',
+	chkAutoplay: '자동재생',
+	noCode : '공유 소스코드나 URL을 꼭 입력해주셔야 합니다.',
+	invalidEmbed : '입력하신 공유 소스코드가 작동하지 않습니다.',
+	invalidUrl : '입력하신 URL이 작동하지 않습니다.',
+	or : '또는',
+	noWidth : '가로를 입력하셔야 합니다.',
+	invalidWidth : '가로 값이 맞지 않습니다.',
+	noHeight : '세로를 입력하셔야 합니다.',
+	invalidHeight : '세로 값이 맞지 않습니다.',
+	invalidTime : '시작시간이 맞지 않습니다.',
+	txtResponsive : '반응형으로 넣기 (입력한 가로, 세로를 무시하고 보여지는 가로에 맞춰집니다.)'
+});

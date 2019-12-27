@@ -1,0 +1,1164 @@
+<?define(PMSYSTEM_CHECK,"!#DSS@#!SAADTUUF&&%&*");
+
+include('../includes/system/system.php');
+
+header('P3P: CP="CAO PSA CONi OTR OUR DEM ONL"');
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header("Pragma: no-cache");
+header("Cache-Control: no-store,no-cache,must-revalidate");
+header('Cache-Control: post-check=0, pre-check=0', FALSE);
+
+header("content-type: application/javascript");?>
+var oks = {
+	FLASHBRIDGE: null,
+	browserSupportsWebSockets: function() {
+		return( 
+			window.WebSocket !== null && window.WebSocket !== undefined
+		);
+	},
+	browserSupportsNativeWebSockets: (function() {
+		return(
+			window.WebSocket !== null && window.WebSocket !== undefined
+		);
+	})(),
+	browserSupportsJSON: function() {
+		return(
+			window.JSON !== null && window.JSON !== undefined
+		);
+	},
+	browserSupportsNativeJSON: (function() {
+		return(
+			window.JSON !== null && window.JSON !== undefined
+		);
+	})(),
+	isIE: (function() {
+		var lUserAgent = navigator.userAgent;
+		var lIsIE = lUserAgent.indexOf( "MSIE" );
+		return( lIsIE >= 0 );
+	})()
+};
+if( !oks.browserSupportsNativeJSON ) {
+	// <JasobNoObfs>
+	// Please refer to http://json.org/js
+	if(!this.JSON){this.JSON={};}(function(){function f(n){return n<10?'0'+n:n;}if(typeof Date.prototype.toJSON!=='function'){Date.prototype.toJSON=function(key){return isFinite(this.valueOf())?this.getUTCFullYear()+'-'+f(this.getUTCMonth()+1)+'-'+f(this.getUTCDate())+'T'+f(this.getUTCHours())+':'+f(this.getUTCMinutes())+':'+f(this.getUTCSeconds())+'Z':null;};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(key){return this.valueOf();};}var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={'\b':'\\b','\t':'\\t','\n':'\\n','\f':'\\f','\r':'\\r','"':'\\"','\\':'\\\\'},rep;function quote(string){escapable.lastIndex=0;return escapable.test(string)?'"'+string.replace(escapable,function(a){var c=meta[a];return typeof c==='string'?c:'\\u'+('0000'+a.charCodeAt(0).toString(16)).slice(-4);})+'"':'"'+string+'"';}function str(key,holder){var i,k,v,length,mind=gap,partial,value=holder[key];if(value&&typeof value==='object'&&typeof value.toJSON==='function'){value=value.toJSON(key);}if(typeof rep==='function'){value=rep.call(holder,key,value);}switch(typeof value){case'string':return quote(value);case'number':return isFinite(value)?String(value):'null';case'boolean':case'null':return String(value);case'object':if(!value){return'null';}gap+=indent;partial=[];if(Object.prototype.toString.apply(value)==='[object Array]'){length=value.length;for(i=0;i<length;i+=1){partial[i]=str(i,value)||'null';}v=partial.length===0?'[]':gap?'[\n'+gap+partial.join(',\n'+gap)+'\n'+mind+']':'['+partial.join(',')+']';gap=mind;return v;}if(rep&&typeof rep==='object'){length=rep.length;for(i=0;i<length;i+=1){k=rep[i];if(typeof k==='string'){v=str(k,value);if(v){partial.push(quote(k)+(gap?': ':':')+v);}}}}else{for(k in value){if(Object.hasOwnProperty.call(value,k)){v=str(k,value);if(v){partial.push(quote(k)+(gap?': ':':')+v);}}}}v=partial.length===0?'{}':gap?'{\n'+gap+partial.join(',\n'+gap)+'\n'+mind+'}':'{'+partial.join(',')+'}';gap=mind;return v;}}if(typeof JSON.stringify!=='function'){JSON.stringify=function(value,replacer,space){var i;gap='';indent='';if(typeof space==='number'){for(i=0;i<space;i+=1){indent+=' ';}}else if(typeof space==='string'){indent=space;}rep=replacer;if(replacer&&typeof replacer!=='function'&&(typeof replacer!=='object'||typeof replacer.length!=='number')){throw new Error('JSON.stringify');}return str('',{'':value});};}if(typeof JSON.parse!=='function'){JSON.parse=function(text,reviver){var j;function walk(holder,key){var k,v,value=holder[key];if(value&&typeof value==='object'){for(k in value){if(Object.hasOwnProperty.call(value,k)){v=walk(value,k);if(v!==undefined){value[k]=v;}else{delete value[k];}}}}return reviver.call(holder,key,value);}text=String(text);cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return'\\u'+('0000'+a.charCodeAt(0).toString(16)).slice(-4);});}if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,'@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,']').replace(/(?:^|:|,)(?:\s*\[)+/g,''))){j=eval('('+text+')');return typeof reviver==='function'?walk({'':j},''):j;}throw new SyntaxError('JSON.parse');};}}());
+	// </JasobNoObfs>
+}
+/* 공용 함수 */
+$.fn.isVisible = function() {
+    return $.expr.filters.visible(this[0]);
+};
+// 유닉스 타임스템프
+function mktime(h, i, s, m, d, y){
+    var mkt = new Date(y, m-1, d, h, i, s);
+    if( mktime.arguments.length == 0 ) mkt = new Date();
+    return Math.floor(mkt.getTime()/1000);
+}
+var timestamp = mktime();
+
+function Interval(callback, delay) {
+    var timerId, start, remaining = delay;
+	var doit = 0;
+
+    this.pause = function() {
+        window.clearTimeout(timerId);
+        remaining -= new Date() - start;
+		doit = 1;
+    };
+
+    this.resume = function() {
+        start = new Date();
+		/*if(doit == 1){
+			var delay_time = remaining;
+		} else {*/
+			var delay_time = delay;
+		//}
+        timerId = window.setTimeout(function(){
+			callback();
+		}, delay_time);
+		doit = 0;
+    };
+
+    this.resume();
+}
+// 유닉스 타임스템프
+
+/* 업다운로더 관련 */
+var AppVersion = '1.0.3';
+var run_type;
+var vno;
+var id;
+var callKey;
+var appTime;
+var mem;
+var checksum;
+
+var getKeyInterval;
+
+function FlexMovie(movieName) {
+	if (navigator.appName.indexOf("Microsoft") != -1) {
+		return window[movieName + 'IE'];
+	} else {
+		return document[movieName];
+	}
+}
+
+function noAir(){
+	call_loads('content_list','/includes/ajax_loads/contents.php',{'proc' : 'noair'},true,'#999 solid 10px',"1");
+	return true;
+}
+function noApp(str){
+	var str = str || null;
+	//call_loads('content_list','/includes/ajax_loads/contents.php',{'proc' : 'noair'},true,'#999 solid 10px',"1");
+	//if(confirm('프로그램 설치가 끝난 후에는 새로고침을 해주셔야 적용됩니다. 새로고침 하시겠습니까?')) location.reload();
+	//if(str != null) alert('업데이트가 필요합니다. '+str);
+	return true;
+}
+function installed(){
+	return true;
+}
+function noLoginAir(){
+	alert('로그인을 먼저 해주세요!');
+	$('.popUp').fadeOut(200); $('#loginPop').fadeIn(500);
+}
+function finishedInstall(){
+	location.reload();
+}
+
+function fileSelecting(){
+	$('div#filelist > div').remove();
+	var loading_div = $('<div id="itemAddLoading" style="position:relative;top:0;bottom:0;margin-top:27px;width:100%;text-align:center"><img src="/images/common/loading.gif"></div>');
+	$('div#filelist').append(loading_div);
+	$('div#filelist > ul').hide();
+}
+
+var UPselectType;
+function getFileInfo(str){
+	$.post('/includes/ajax_loads/upload.php',{'proc':'getFileInfo','path':str,'time': timestamp},function(data){
+		data = decodeURIComponent(data).replace(/\\\'/g,"'");
+		var all_size = 0; var all_coin = 0;
+		
+		var data_split = data.split('|_|');
+		if(UPselectType != 'file' || UPselectType != data_split[0]) $('div#filelist').html("");
+		UPselectType = data_split[0];
+		
+		var path_split = data_split[1].split('||');
+
+		var did_empty = false;
+		if($('div#filelist > ul').length > 0){
+			var ul_obj = $('div#filelist > ul');
+			ul_obj.find('li').each(function(){
+				all_size += Number($(this).attr('size'));
+				all_coin += Number($(this).attr('coin'));
+			});
+		} else {
+			var ul_obj = $('<ul></ul>');
+			ul_obj.css({'list-style-type':'none','height':'90px','max-height':'90px','overflow-x':'hidden','overflow-y':'auto','margin':0,'padding':0});
+			did_empty = true;
+		}
+		for(i=0;i<path_split.length;i++){
+			var detail_split = path_split[i].split('<>');
+			var ruin_split = detail_split[0].split('_|_');
+			
+			var li_obj = $('<li></li>');
+			li_obj.css({'width':'680px','cursor':'default'});
+
+			var div_title = $('<div></div>');
+			li_obj.attr('id',ruin_split[0]);
+			li_obj.attr('path',ruin_split[2]);
+			div_title.attr('id','show_path');
+			div_title.text(detail_split[1]);
+			div_title.css({'float':'left','width':'506px','height':'17px','text-align':'left','padding':'5px 5px 0 5px','border-bottom':'1px solid #eee','border-right':'1px solid #eee'});
+
+			var div_size = $('<div></div>');
+			all_size += Number(ruin_split[1]);
+			li_obj.attr('size',Number(ruin_split[1]));
+			div_size.text(kbyteFormat(Number(ruin_split[1]),1));
+			div_size.css({'float':'left','width':'61px','height':'17px','text-align':'right','padding':'5px 15px 0 5px','border-bottom':'1px solid #eee','border-right':'1px solid #eee'});
+
+			var div_coin = $('<div></div>');
+			var coin = Number(ruin_split[1])/1024/1024/10;
+			if(coin < 0.1){
+				coin = 0;
+			} else if(coin < 10){
+				coin = 10;
+			} else {
+				coin = Math.ceil(coin);
+			}
+			all_coin += coin;
+			li_obj.attr('coin',coin);
+			div_coin.text(coin + " C");
+			div_coin.css({'float':'left','width':'51px','height':'17px','text-align':'right','padding':'5px 25px 0 5px','border-bottom':'1px solid #eee'});
+
+			li_obj.append(div_title);
+			li_obj.append(div_size);
+			li_obj.append(div_coin);
+			
+			ul_obj.append(li_obj);
+		}
+		ul_obj.find('li').off("click").click(function(){
+			if(!$(this).hasClass('selected')){
+				$(this).find('div').css({'background':'#08246b','color':'#fff'});
+				$(this).addClass('selected');
+			} else {
+				$(this).find('div').css({'background':'#fff','color':'#5f5f5f'});
+				$(this).removeClass('selected');
+			}
+		});
+		$('div#itemAddLoading').remove();
+		if(did_empty){
+			$('div#filelist').append(ul_obj);
+		} else {
+			ul_obj.show();
+		}
+		$('span#sizecoin').text(kbyteFormat(all_size,1) + ' / ' + all_coin + ' C');
+	});
+}
+
+function getListApp_info(run_type,vno){
+	var run_type = run_type || 'listdown';
+	var vno = vno || null;
+	$.post('/includes/ajax_loads/server_key.php', {'time': mktime()}, function(data){
+		var keySplit = data.split('_');
+
+		id			= "<?=$MEM['id']?>";
+		callKey		= keySplit[0];
+		appTime		= keySplit[1];
+		mem			= "<?=$MEM['idx']?>";
+		checksum	= "<?=round(microtime(true) * 1000)?>";
+
+		if(FlexMovie('DisktubeListDown').paramUpdate) FlexMovie('DisktubeListDown').paramUpdate(run_type,vno,id,callKey,appTime,mem,checksum,null,AppVersion);
+	});
+}
+
+var cart_vno = null;
+function getCartApp_info(){
+	$.post('/includes/ajax_loads/server_key.php', {'time': mktime()}, function(data){
+		var keySplit = data.split('_');
+
+		run_type	= "cartdown";
+		id			= "<?=$MEM['id']?>";
+		callKey		= keySplit[0];
+		appTime		= keySplit[1];
+		mem			= "<?=$MEM['idx']?>";
+		checksum	= "<?=round(microtime(true) * 1000)?>";
+
+		if(FlexMovie('DisktubeCartDown').paramUpdate) FlexMovie('DisktubeCartDown').paramUpdate(run_type,cart_vno,id,callKey,appTime,mem,checksum,null,AppVersion);
+	});
+}
+
+$(document).ready(function () {
+	$('img#rmvSel').click(function(){
+		$('div#filelist > ul > li.selected').remove();
+
+		var all_size = 0; var all_coin = 0;
+		ul_obj = $('div#filelist > ul').find('li').each(function(){
+			all_size += Number($(this).attr('size'));
+			all_coin += Number($(this).attr('coin'));
+		});
+		$('span#sizecoin').text(kbyteFormat(all_size,1) + ' / ' + all_coin + ' C');
+	});
+});
+/* //업다운로더 관련 */
+
+/* 레이아웃 call */
+$(function(){
+	$('.inputDesign').jqTransform();
+});
+var sv_cl_int = mktime();
+$(document).ready(function () {
+	$('.imgBtn').hover(function () {
+		$(this).attr('src', '/images/nav/' + $(this).attr('srcname') + '_on.png');
+	}, function () {
+		$(this).attr('src', '/images/nav/' + $(this).attr('srcname') + '.png');
+	});
+
+	$('.imgBtn3').hover(function () {
+		$(this).attr('src', '/images/ico/' + this.id + '_on.png');
+	}, function () {
+		$(this).attr('src', '/images/ico/' + this.id + '.png');
+	});
+
+	$('.number_input').numeric().css('ime-mode', 'disabled');
+	$('.only_eng').css('ime-mode', 'disabled');
+
+	/* 리스트 */
+	$("ul.sum_list > li").hover(function() {
+		$(this).find('span.list_cart > img').show();
+		var moving_tit = $('<div>');
+		moving_tit.addClass('tit-over');
+		moving_tit.css({'max-width':$(this).find('.tit').css('max-width'),'font-weight':'bold','color':$(this).find('.tit').css('color')});
+		moving_tit.html('<div>'+$(this).find('.tit').html()+'</div>');
+		moving_tit.click(function(){
+			call_loads('content_list','/includes/ajax_loads/contents.php',{'idx' : $(this).parent().find('.tit').attr('idx')},true,'#999 solid 10px');
+		});
+		$(this).find('.list_text').find('div.tit').hide();
+		$(this).find('.list_text').prepend(moving_tit);
+		left_mov_sum_tit($(this));
+	},function(){
+		$(this).find('span.list_cart > img').hide();
+		$(this).find('.list_text').find('div.tit-over').remove();
+		$(this).find('.list_text').find('div.tit').show();
+	});
+	/* //리스트 */
+
+	/* 자주 묻는 질문 */
+	$.post("/includes/ajax_loads/faq.php", function(rtn){
+		$('#faq').html(rtn);
+		$(".toggleCtrl").click(function(){
+			var tId = $(this).attr("id");
+			$("#"+tId+"_Tog").toggle();
+		});
+	});
+	/* //자주 묻는 질문 */
+
+	/* //결제 관련 */
+	payChang('1', '2');
+	/* //결제 관련 */
+});
+
+/* 리스트 우측 이동 */
+function left_mov_sum_tit(dom,spd){
+	var spd = spd || null;
+	var target = dom.find('div.tit-over').find('div');
+	if(target.length){
+		if(spd == 1){
+			var speed = (dom.find('div.tit-over').width() + target.width()) * 15;
+		} else {
+			var speed = target.width() * 15;
+		}
+		target.animate({left:-1 * target.width()},speed,"linear",function(){
+			if(target.length){
+				$(this).css('left',target.parent().width());
+				left_mov_sum_tit(dom,1);
+			}
+		});
+	}
+}
+/* //리스트 우측 이동 */
+
+/* 자주 묻는 질문 페이징 후 */
+function faq_load(page, search){
+	$.post("/includes/ajax_loads/faq.php",{'Dpage':page,'search':search},function(rtn){
+		$('#faq').html(rtn);
+		$(".toggleCtrl").click(function(){
+			var tId = $(this).attr("id");
+			$("#"+tId+"_Tog").toggle();
+		});
+	});
+}
+/* //자주 묻는 질문 페이징 후 */
+
+/* 투데이, 위클리 챠트 */
+$(document).ready(function () {
+	var today_timeout = '';
+	var weekly_timeout = '';
+	$('div#realtime > ul#today').data('num','01');
+	$('div#realtime > ul#weekly').data('num','1');
+	$('div#realtime > ul > li').hover(function () {
+		if($(this).parent().attr('id') == 'today'){
+			clearTimeout(today_timeout);
+		} else {
+			clearTimeout(weekly_timeout);
+		}
+		$(this).parent().data('num',$(this).attr('id'));
+		$(this).parent().find('li').each(function(){
+			$(this).find('.imgBtn2').attr('src', 'images/main/' + $(this).find('.imgBtn2').attr('id') + '.gif');
+			$(this).find('a').removeClass('selected').css('font-weight','normal');
+		});
+		$(this).find('.imgBtn2').attr('src', 'images/main/' + $(this).find('.imgBtn2').attr('id') + '_on.gif');
+		$(this).find('a').addClass('selected').css('font-weight','bold');
+	},function(){
+		if($(this).parent().attr('id') == 'today'){
+			$(this).parent().data('num',leadingZeros(parseInt($(this).attr('id')) + 1,2));
+			today_timeout = setTimeout(today_rolling, 3000);
+		} else {
+			$(this).parent().data('num',parseInt($(this).attr('id')) + 1);
+			weekly_timeout = setTimeout(weekly_rolling, 3000);
+		}
+	});
+	function today_rolling(){ 
+		if($('div#realtime > ul#today').data('num') == '08') $('div#realtime > ul#today').data('num','01');
+		$('div#realtime > ul#today > li#'+$('div#realtime > ul#today').data('num')).mouseover();
+		$('div#realtime > ul#today').data('num',leadingZeros(parseInt($('div#realtime > ul#today').data('num')) + 1,2));
+		today_timeout = setTimeout(today_rolling, 3000);
+	}
+	today_rolling();
+	function weekly_rolling(){
+		if($('div#realtime > ul#weekly').data('num') == '8') $('div#realtime > ul#weekly').data('num','1');
+		$('div#realtime > ul#weekly > li#'+$('div#realtime > ul#weekly').data('num')).mouseover();
+		$('div#realtime > ul#weekly').data('num',parseInt($('div#realtime > ul#weekly').data('num')) + 1);
+		weekly_timeout = setTimeout(weekly_rolling, 3000);
+	}
+	weekly_rolling();
+});
+/* //투데이, 위클리 챠트 */
+
+function leadingZeros(n, digits) {
+	var zero = '';
+	n = n.toString();
+
+	if (n.length < digits) {
+	for (var i = 0; i < digits - n.length; i++)
+		zero += '0';
+	}
+	return zero + n;
+}
+
+/* 썸네일 컨텐츠 리스트 타이틀 */
+function left_mov_tit(dom,spd){
+	var spd = spd || null;
+	var target = dom.find('div.thumb-title-over').find('div');
+	if(target.length){
+		if(spd == 1){
+			var speed = (dom.find('div.thumb-title-over').width() + target.width()) * 30;
+		} else {
+			var speed = target.width() * 30;
+		}
+		target.animate({left:-1 * target.width()},speed,"linear",function(){
+			if(target.length){
+				$(this).css({'left':'127px'});
+				left_mov_tit(dom,1);
+			}
+		});
+	}
+}
+function mini_title(dom,chg_ht,bno_v){
+	var chg_ht = chg_ht || 1;
+	var bno_v = bno_v || null;
+	dom.each(function(){
+		var over_div = $('<div>');
+		var bbs_no = $(this).find('span.m_tit').attr('bbs_no');
+		over_div.addClass('over_div');
+		over_div.css({'width':$(this).width(), 'height':$(this).height(), 'position':'absolute', 'top':0, 'left':0, 'cursor':'pointer', 'background':'#000', '-ms-filter':'alpha(opacity=0)', 'filter':'alpha(opacity=0)', 'opacity':'0', '-moz-opacity':'0'});
+		over_div.click(function(){
+			call_loads('content_list','/includes/ajax_loads/contents.php',{'idx' : bbs_no},true,'#999 solid 10px');
+		});
+		$(this).append(over_div);
+	});
+	$('div.over_div').hover(function(){
+		var par_li = $(this).parent();
+		par_li.find('.m_tit').css({'opacity':'0.99','-ms-filter':'alpha(opacity=99)','filter':'alpha(opacity=99)','-moz-opacity':'0.99'});
+		if(par_li.find('.m_tit').data('animate') == null){
+			par_li.find('.m_tit').data('def_height',par_li.find('.m_tit').height());
+		}
+		if(par_li.find('.m_tit').data('animate') != 1){
+			par_li.find('.m_tit').data('animate',1);
+			par_li.find('.m_tit').stop();
+			par_li.find('.m_tit').animate({height: par_li.find('.m_tit').data('def_height') + parseInt(par_li.find('.m_tit').css('line-height'),10)*chg_ht}, 300, function(){
+				var moving_tit = $('<div>');
+				moving_tit.addClass('thumb-title-over');
+				moving_tit.html('<div>'+par_li.find('.m_tit').find('div.thumb-title').html()+'</div>');
+				par_li.find('.m_tit').find('div.thumb-title').hide();
+				par_li.find('.m_tit').append(moving_tit);
+				if(bno_v == 'ok'){
+					var add_div = '<div class="coin_bbs_no"><strong><font class="sky2">코인 : '+$(this).attr('coin')+'<br/>번호 : '+$(this).attr('bbs_no')+'</font></strong></div>';
+				} else {
+					var add_div = '<div class="coin_bbs_no"><strong><font class="sky2">코인 : '+$(this).attr('coin')+'</font></strong></div>';
+				}
+				par_li.find('.m_tit').append(add_div);
+				left_mov_tit(par_li.find('.m_tit'));
+			});
+		}
+	},function(){
+		var par_li = $(this).parent();
+		if(par_li.find('.m_tit').data('animate') == 1){
+			par_li.find('.m_tit').data('animate',0);
+			par_li.find('.m_tit').stop();
+			par_li.find('.m_tit').find('div.thumb-title-over').remove();
+			par_li.find('.m_tit').find('div.thumb-title').show();
+			par_li.find('.m_tit').find('div.coin_bbs_no').remove();
+			par_li.find('.m_tit').animate({height: par_li.find('.m_tit').data('def_height')}, 300);
+		}
+	});
+}
+/* //썸네일 컨텐츠 리스트 타이틀 */
+
+// 레이어 ajax 로드
+function call_loads(id, url, param, mid, border, reload){
+	var mid = mid || null;
+	var border = border || null;
+	var reload = reload || null;
+	var ori_width = $("#"+id).attr('max-width');
+	$.post('/includes/ajax_loads/server_time.php', {'time': timestamp}, function(data){
+		sv_cl_int = mktime() - data;
+	});
+	$("#"+id).hide();
+	$("#"+id).css({'max-width':ori_width,'overflow':'hidden'});
+	$("#"+id).load(url,param,function(){
+		$('img#contents_close').click(function(){ $("#content_list").dialog( "close" ); });
+		$('img#con_recom_thumb').click(function(){ call_loads('content_list','/includes/ajax_loads/contents.php',{'idx' : $(this).attr('idx')},true,'#999 solid 10px'); });
+		if(mid == true){
+			$("#"+id).show(0,function(){
+				if($(window).height() > 720){
+					$('div.reply').height(309 + $(window).height() - 720);
+					$('iframe#contents').height(360 + $(window).height() - 720);
+					$('object#DisktubeDownloaderIE').css('top',(573 + $(window).height() - 720) + 'px');
+				} else {
+					$('div.reply').height(309);
+					$('iframe#contents').height(360);
+					$('object#DisktubeDownloaderIE').css('top','573px');
+				}
+
+				$(this).dialog({
+					width: 'auto',
+					height: 'auto',
+					modal: true,
+					position: 'fixed',
+					resizable: false,
+					autoOpen: false,
+					open: function(){
+						$('body,html').css('overflow','hidden');
+						$('html').css({'overflow-x':'hidden','overflow-y':'hidden'});
+						$('object#DisktubeCartDownIE,object#DisktubeListDownIE').hide();
+					},
+					close: function(){
+						clearInterval(getKeyInterval);
+						$('body').css('overflow','auto');
+						$('html').css({'overflow-x':'auto','overflow-y':'scroll'});
+						$('object#DisktubeCartDownIE,object#DisktubeListDownIE').show();
+						if(reload != null) location.reload();
+					}
+				});
+				$('.ui-dialog-titlebar').hide();
+				$('.ui-widget-content').css('border','0');
+				$('.ui-dialog-content').css({'border':'0', 'padding':'0'});
+				$('.ui-dialog').css({'outline':'0', 'padding':'0', 'z-index':1002, 'border-radius':0});
+				$(this).parent().css({position:"fixed"}).end().dialog('open');
+				$('.ui-widget-overlay').css({'background-color':'black', 'background-image':'none', 'opacity':'0.8', '-ms-filter':'alpha(opacity=80)', 'filter':'alpha(opacity=80)', '-moz-opacity':'0.8', 'z-index':1001});
+			});
+			$(window).resize(function(){
+				if($('body').css('overflow') == 'hidden'){
+					$("#"+id).show(0,function(){
+						if($(window).height() > 720){
+							$('div.reply').height(309 + $(window).height() - 720);
+							$('iframe#contents').height(360 + $(window).height() - 720);
+						} else {
+							$('div.reply').height(309);
+							$('iframe#contents').height(360);
+						}
+
+						$(this).dialog({
+							width: 'auto',
+							height: 'auto',
+							modal: true,
+							position: 'fixed',
+							resizable: false,
+							autoOpen: false,
+							open: function(){
+								$('body,html').css('overflow','hidden');
+								$('html').css({'overflow-x':'hidden','overflow-y':'hidden'});
+								$('object#DisktubeCartDownIE,object#DisktubeListDownIE').hide();
+							},
+							close: function(){
+								clearInterval(getKeyInterval);
+								$('body').css('overflow','auto');
+								$('html').css({'overflow-x':'auto','overflow-y':'scroll'});
+								$('object#DisktubeCartDownIE,object#DisktubeListDownIE').show();
+								if(reload != null) location.reload();
+							}
+						});
+
+						$('.ui-dialog-titlebar').hide();
+						$('.ui-widget-content').css('border','0');
+						$('.ui-dialog-content').css({'border':'0', 'padding':'0'});
+						$('.ui-dialog').css({'outline':'0', 'padding':'0', 'z-index':1002, 'border-radius':0});
+						$(this).parent().css({position:"fixed"}).end().dialog('open');
+						$('.ui-widget-overlay').css({'background-color':'black', 'background-image':'none', 'opacity':'0.8', '-ms-filter':'alpha(opacity=80)', 'filter':'alpha(opacity=80)', '-moz-opacity':'0.8', 'z-index':1001});
+					});
+					if(border != null) $('.ui-dialog').css('border',border);
+				}
+			});
+			$(window).resize();
+		}else{
+			$("#"+id).show(350);
+		}
+		if(border != null) $('.ui-dialog').css('border',border);
+
+		bgImg_set();
+
+		/* 폼 포커싱 시 백그라운드 변경 */
+		$(".bgImg_set").bind('focus', function(){
+			$(this).css('backgroundImage','url(none)');
+		}).blur(function(){
+			bgImg_set();
+		});
+
+		$('.number_input').numeric().css('ime-mode', 'disabled');
+		$('.only_eng').css('ime-mode', 'disabled');
+
+		$("input").blur();
+	});
+}
+
+function bgImg_set(){        
+	if($('.bgImg_set').length){
+		$(".bgImg_set").each(function (i) {
+			if ($(this).val()=='' && $(this).attr('bgImg')!='' ) {
+				$(this).css('background','url('+$(this).attr('bgImg')+') no-repeat');
+			}else{
+				$(this).css('background','');
+			}
+		});
+	}
+}
+
+function in_array (needle, haystack, argStrict) {
+	var key = '',
+		strict = !! argStrict;
+	if (strict) {
+		for (key in haystack) {
+			if (haystack[key] === needle) {
+				return true;
+			}
+		}
+	} else {
+		for (key in haystack) {
+			if (haystack[key] == needle) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+/* HOT & NEW */
+function load_thumbs(load, obj, proc, cate, foo) {
+	var timestamp = mktime();
+	obj = obj || null;
+	proc = proc || null;
+	cate = cate || null;
+	foo = foo || null;
+	$.post(load, {'proc': proc, 'category': cate, 'time': timestamp}, function(data){
+		$(obj).html(data);
+		if(foo != null) foo();
+	});
+}
+
+function hotnnew_onover(obj){
+	$("ul#nav_hot > li > a").removeClass("selected");
+	obj.find("a").addClass("selected");
+	nav_hot_time = $("ul#nav_hot > li").index(obj);
+	load_thumbs('/includes/ajax_loads/main.php', 'ul.hot_list', 'hotnnew', obj.attr('top_cate'), function(){
+		$('ul.hot_list > li > span').hide();
+		var show_speed = "fast";
+		$('ul.hot_list > li#no1 > span').fadeIn(show_speed, function() {
+			$('ul.hot_list > li#no2 > span').fadeIn(show_speed, function() {
+				$('ul.hot_list > li#no3 > span').fadeIn(show_speed, function() {
+					$('ul.hot_list > li#no4 > span').fadeIn(show_speed, function() {});
+				});
+			});
+		});
+		mini_title($('ul.hot_list > li'),2,'ok');
+	});
+}
+/* //HOT & NEW */
+
+/* 장바구니 */
+function cart_idx(bno,type) {
+	type = type || 'add';
+	var timestamp = mktime();
+	$.post('/includes/ajax_loads/storage.php', {'proc': type+'_cart', 'bno': bno, 'time': timestamp}, function(data){
+		var split_html = data.split('|_|+_|_+|_|');
+		$('div#list_cart > ul').html(split_html[0]);
+		$('div#list_cart > ul > li > span').click(function(){
+			call_loads('content_list','/includes/ajax_loads/contents.php',{'idx' : $(this).parent().attr('idx')},true,'#999 solid 10px');
+		});
+		$('input#cart_chk_all').change(function(){
+			if($(this).is(":checked")){
+				$('input[name=cart_chk]:checkbox').prop('checked', true);
+			} else {
+				$('input[name=cart_chk]:checkbox').prop('checked', false);
+			}
+		});
+		$('span#cart_all_coin').text(number_format(parseInt(split_html[1])));
+		if(split_html[2]){
+			cart_vno = split_html[2].trim();
+			getCartApp_info();
+		}
+	});
+}
+function refresh_cart(){
+	$('input#cart_chk_all').prop('checked',true);
+	$('img#cart_del').click();
+	$('input#cart_chk_all').prop('checked',false);
+}
+$(document).ready(function(){
+	$('div#list_cart > ul > li > span').click(function(){
+		call_loads('content_list','/includes/ajax_loads/contents.php',{'idx' : $(this).parent().attr('idx')},true,'#999 solid 10px');
+	});
+	$('input#cart_chk_all').change(function(){
+		if($(this).is(":checked")){
+			$('input[name=cart_chk]:checkbox').prop('checked', true);
+		} else {
+			$('input[name=cart_chk]:checkbox').prop('checked', false);
+		}
+	});
+	cart_idx(null,'view');
+
+	$('img#cart_del').click(function(){
+		var check_idx = "";
+		$('input[name=cart_chk]:checkbox:checked').each(function(){
+			if(check_idx != "") check_idx += "a";
+			check_idx += $(this).val();
+		});
+		cart_idx(check_idx,'del');
+	});
+});
+/* //장바구니 */
+
+/* 댓글 */
+function date_mk(utme){
+	var msecPerMinute = 1000 * 60;
+	var msecPerHour = msecPerMinute * 60;
+	var msecPerDay = msecPerHour * 24;
+
+	var nowDate = new Date();
+	var theDate = new Date((utme) * 1000 + sv_cl_int * 1000);
+	var dateMsec = theDate.getTime();
+	var nowMsec = nowDate.getTime();
+	var interval = nowMsec - dateMsec;
+
+	var days = Math.floor(interval / msecPerDay );
+	interval = interval - (days * msecPerDay );
+
+	var hours = Math.floor(interval / msecPerHour );
+	interval = interval - (hours * msecPerHour );
+
+	var minutes = Math.floor(interval / msecPerMinute );
+	interval = interval - (minutes * msecPerMinute );
+
+	var seconds = Math.floor(interval / 1000 );
+
+	var days_txt = '';
+	var hours_txt = '';
+	var minutes_txt = '';
+	var seconds_txt = '';
+
+	if(days != 0){
+		days_txt = days + "일 ";
+	}
+	if(days == 0 && (hours != 0 || days_txt != '')){
+		hours_txt = hours + "시간 ";
+	}
+	if((hours == 0 && days == 0) && (minutes != 0 || hours_txt != '')){
+		minutes_txt = minutes + "분 ";
+	}
+	if(minutes == 0 && hours == 0 && days == 0){
+		seconds_txt = Math.floor(seconds/5)*5 + "초 ";
+	}
+
+	return days_txt + hours_txt + minutes_txt + seconds_txt + "전";
+}
+
+var comment_dif;
+
+function time_dif_view() {
+	clearTimeout(comment_dif);
+	$("span[utime]").each(function(){
+		$(this).html(date_mk($(this).attr('utime')));
+	});
+	comment_dif = setTimeout("time_dif_view()", 1000);
+}
+
+function comment_insert(idx,keyword) {
+	if(keyword == ''){
+		alert('내용을 입력해주세요!');
+		$('input#cmt').focus();
+	} else {
+		$.get('/includes/ajax_loads/contents.php',{'idx':idx,'proc':'write_com','keyword':keyword,'keylog':$('input#keylog').val(),'time': timestamp},function(data){
+			if(data == 'success'){
+				$('div.reply').load('/includes/ajax_loads/contents.php',{'idx':idx,'proc':'read_com'});
+				$.post('/includes/ajax_loads/server_time.php', {'time': timestamp}, function(data){
+					sv_cl_int = mktime() - data;
+				});
+				$('input#keylog').val(mktime() + sv_cl_int);
+				$('input#cmt').val('').focus();
+			}
+		});
+	}
+}
+
+function comment_delete(idx,ac_idx) {
+	$.get('/includes/ajax_loads/contents.php',{'idx':idx,'proc':'delete_com','ac_idx':ac_idx,'time': timestamp},function(data){
+		if(data == 'success'){
+			$('div.reply').load('/includes/ajax_loads/contents.php',{'idx':ac_idx,'proc':'read_com'});
+			$.post('/includes/ajax_loads/server_time.php', {'time': timestamp}, function(data){
+				sv_cl_int = mktime() - data;
+			});
+			$('input#keylog').val(mktime() + sv_cl_int);
+		}
+	});
+}
+
+function reco_com(idx,ac_idx) {
+	$.get('/includes/ajax_loads/contents.php',{'idx':idx,'proc':'reco_com','time': timestamp},function(data){
+		if(data == 'success'){
+			$('div.reply').load('/includes/ajax_loads/contents.php',{'idx':ac_idx,'proc':'read_com'});
+			$.post('/includes/ajax_loads/server_time.php', {'time': timestamp}, function(data){
+				sv_cl_int = mktime() - data;
+			});
+			$('span#com_'+idx).focus();
+		}
+	});
+}
+/* //댓글 */
+
+/* 1:1상담 팝업 form 체크 */
+function mtom_insert(){
+	if(!$('#subject').val()){
+		alert('상담제목을 작성해주세요');
+		return false;
+	}
+	if(!$('#content').val()){
+		alert('상담내용을 작성해주세요');
+		return false;
+	}
+	var subject = $('#subject').val();
+	var content = $('#content').val();
+
+	$.post('/includes/ajax_loads/mypage.php',{'subject':subject,'content':content,'proc':'1to1_insert','time': timestamp},function(data){
+		if(data == 'success'){
+			alert('정상적으로 접수되었습니다.\n문의 확인은 마이페이지에서 가능합니다.');
+			$('.popUp').fadeOut(200);
+			$('#subject').val('');
+			$('#content').val('');
+			mtom_list();
+		}else{
+			alert('접수처리에 실패하였습니다.\n지속적인 오류 발생시 문의해주세요.');
+		}
+	});
+}
+/* //1:1상담 팝업 form 체크 */
+
+/* 결제 관련 */
+/* 결제 금액 변경 */
+var pay_loading = 0;
+function payChang(p_result, pay){
+	$.post('/includes/ajax_loads/mypage.php',{'p_result':p_result,'pay':pay,'proc':'pay_type','time': timestamp},function(data){
+		result = data.split('||');
+		if(result[0] == "success"){
+			pay_type = result[6];
+			if(p_result == "1"){
+				$('#p_point1').attr('style', 'display:block');
+				$('#p_point2').attr('style', 'display:none');
+				$('#basic_point').html(number_format(result[1]));
+				$('#plus_point').html(number_format(result[2]));
+				$('#bonus_point').html(number_format(result[3]));
+				$('#total_point').html(number_format(result[4]));
+				$('#total_pay').html(number_format(result[5]));
+			}else{
+				$('#p_point1').attr('style', 'display:none');
+				$('#p_point2').attr('style', 'display:block');
+				$('#basic_point').html(result[1]);
+				$('#total_pay').html(number_format(result[5]));
+			}
+		}
+	});
+
+	$('img#order').off('click');
+	$('img#order').click(function(){
+		var pay_radio = $(':radio[name="pay_end"]:checked').val();
+		//14.05.30 추가 시작
+		if(pay_loading != 1){
+			pay_loading = 1;
+			if(pay_radio == "1"){
+				window.open('/pay/Ready.php?raw_url=<?=$raw_url?>&id=<?=$MEM['id']?>&email=<?=$MEM['email']?>&type='+pay_type, 'popup', 'width=497,height=676,left=0,top=0,resizable=no,toolbars=no,scrollbars=no,location=no');
+			}else if(pay_radio == "3"){
+				window.open('/pay/Credit/Ready.php?raw_url=<?=$raw_url?>&id=<?=$MEM['id']?>&email=<?=$MEM['email']?>&type='+pay_type, 'popup', 'width=497,height=676,left=0,top=0,resizable=no,toolbars=no,scrollbars=no,location=no');
+			}
+			//14.05.30 추가 완료
+			/*$.post('/includes/ajax_loads/mypage.php',{'pay_type':pay_type,'proc':'temporarily','time': timestamp},function(data){
+				if(data == "login"){
+					alert('로그인 후 이용가능합니다.');
+				}else{
+					result = data.split('||');
+					if(result[0] == "success"){
+						if(pay_radio == "1"){
+							window.open('/pay/Ready.php?raw_url='+result[1]+'&no='+result[2], 'popup', 'width=497,height=676,left=0,top=0,resizable=no,toolbars=no,scrollbars=no,location=no');
+						}else if(pay_radio == "3"){
+							window.open('/pay/Credit/Ready.php?raw_url='+result[1]+'&no='+result[2], 'popup', 'width=497,height=676,left=0,top=0,resizable=no,toolbars=no,scrollbars=no,location=no');
+						}
+					}
+				}
+			});*/
+		} else {
+			alert('현재 결제가 진행 중입니다.\n만약 결제창이 안 나타나면 새로고침 후 다시 시도해주세요.');
+		}
+	});
+}
+/* //결제 금액 변경 */
+/* //결제 관련 */
+
+/* Common Function */
+
+/* numberformat */
+function number_format(data) {
+	var data = data.toString();
+	var tmp = '';
+	var number = '';
+	var cutlen = 3;
+	var comma = ',';
+	var i;
+   
+	len = data.length;
+	mod = (len % cutlen);
+	k = cutlen - mod;
+	for (i=0; i<data.length; i++) {
+		number = number + data.charAt(i);
+		if (i < data.length - 1) {
+			k++;
+			if ((k % cutlen) == 0) {
+				number = number + comma;
+				k = 0;
+			}
+		}
+	}
+	if(data == '0' || data == '' || data == 'NaN') number = '0';
+	return number;
+}
+/* //numberformat */
+
+/* 바이트 단위 계산 */
+function kbyteFormat(bytes, decimals) {
+	var decimals = decimals || 2;
+	var units = new Array();
+	var unit; var pow;
+	units['B'] = 0; units['KB'] = 1; units['MB'] = 2; units['GB'] = 3; units['TB'] = 4; units['PB'] = 5; units['EB'] = 6; units['ZB'] = 7; units['YB'] = 8;
+	var rtn_value = 0;
+	if (bytes < 1024) {
+		unit = "B";
+	} else if (bytes < 1024*1024) {
+		unit = "KB";
+	} else if (bytes < 1024*1024*1024) {
+		unit = "MB";
+	} else if (bytes < 1024*1024*1024*1024) {
+		unit = "GB";
+	} else if (bytes < 1024*1024*1024*1024*1024) {
+		unit = "TB";
+	}
+	if (bytes > 0) {
+		// Generate automatic prefix by bytes 
+		// If wrong prefix given
+		if (!array_key_exists(unit, units)) {
+			pow = Math.floor(Math.log(bytes)/Math.log(1024));
+			unit = $.inArray(pow, units);
+		}
+		// Calculate byte value by prefix
+		rtn_value = (bytes/Math.pow(1024,Math.floor(units[unit])));
+	}
+	// If decimals is not numeric or decimals is less than 0 
+	// then set default value
+	if (!$.isNumeric(decimals) || decimals < 0) {
+		decimals = 2;
+	}
+	// Format output
+	return sprintf('%.' + decimals + 'f ' + unit, rtn_value);
+}
+/* //바이트 단위 계산 */
+
+/* 배열 키 존재 여부 */
+function array_key_exists(key, search) {
+  //  discuss at: http://phpjs.org/functions/array_key_exists/
+  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // improved by: Felix Geisendoerfer (http://www.debuggable.com/felix)
+  //   example 1: array_key_exists('kevin', {'kevin': 'van Zonneveld'});
+  //   returns 1: true
+
+  if (!search || (search.constructor !== Array && search.constructor !== Object)) {
+    return false;
+  }
+
+  return key in search;
+}
+/* //배열 키 존재 여부 */
+
+/* sprintf */
+function sprintf() {
+  //  discuss at: http://phpjs.org/functions/sprintf/
+  // original by: Ash Searle (http://hexmen.com/blog/)
+  // improved by: Michael White (http://getsprink.com)
+  // improved by: Jack
+  // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // improved by: Dj
+  // improved by: Allidylls
+  //    input by: Paulo Freitas
+  //    input by: Brett Zamir (http://brett-zamir.me)
+  //   example 1: sprintf("%01.2f", 123.1);
+  //   returns 1: 123.10
+  //   example 2: sprintf("[%10s]", 'monkey');
+  //   returns 2: '[    monkey]'
+  //   example 3: sprintf("[%'#10s]", 'monkey');
+  //   returns 3: '[####monkey]'
+  //   example 4: sprintf("%d", 123456789012345);
+  //   returns 4: '123456789012345'
+  //   example 5: sprintf('%-03s', 'E');
+  //   returns 5: 'E00'
+
+  var regex = /%%|%(\d+\$)?([-+\'#0 ]*)(\*\d+\$|\*|\d+)?(\.(\*\d+\$|\*|\d+))?([scboxXuideEfFgG])/g;
+  var a = arguments;
+  var i = 0;
+  var format = a[i++];
+
+  // pad()
+  var pad = function(str, len, chr, leftJustify) {
+    if (!chr) {
+      chr = ' ';
+    }
+    var padding = (str.length >= len) ? '' : new Array(1 + len - str.length >>> 0)
+      .join(chr);
+    return leftJustify ? str + padding : padding + str;
+  };
+
+  // justify()
+  var justify = function(value, prefix, leftJustify, minWidth, zeroPad, customPadChar) {
+    var diff = minWidth - value.length;
+    if (diff > 0) {
+      if (leftJustify || !zeroPad) {
+        value = pad(value, minWidth, customPadChar, leftJustify);
+      } else {
+        value = value.slice(0, prefix.length) + pad('', diff, '0', true) + value.slice(prefix.length);
+      }
+    }
+    return value;
+  };
+
+  // formatBaseX()
+  var formatBaseX = function(value, base, prefix, leftJustify, minWidth, precision, zeroPad) {
+    // Note: casts negative numbers to positive ones
+    var number = value >>> 0;
+    prefix = prefix && number && {
+      '2': '0b',
+      '8': '0',
+      '16': '0x'
+    }[base] || '';
+    value = prefix + pad(number.toString(base), precision || 0, '0', false);
+    return justify(value, prefix, leftJustify, minWidth, zeroPad);
+  };
+
+  // formatString()
+  var formatString = function(value, leftJustify, minWidth, precision, zeroPad, customPadChar) {
+    if (precision != null) {
+      value = value.slice(0, precision);
+    }
+    return justify(value, '', leftJustify, minWidth, zeroPad, customPadChar);
+  };
+
+  // doFormat()
+  var doFormat = function(substring, valueIndex, flags, minWidth, _, precision, type) {
+    var number, prefix, method, textTransform, value;
+
+    if (substring === '%%') {
+      return '%';
+    }
+
+    // parse flags
+    var leftJustify = false;
+    var positivePrefix = '';
+    var zeroPad = false;
+    var prefixBaseX = false;
+    var customPadChar = ' ';
+    var flagsl = flags.length;
+    for (var j = 0; flags && j < flagsl; j++) {
+      switch (flags.charAt(j)) {
+        case ' ':
+          positivePrefix = ' ';
+          break;
+        case '+':
+          positivePrefix = '+';
+          break;
+        case '-':
+          leftJustify = true;
+          break;
+        case "'":
+          customPadChar = flags.charAt(j + 1);
+          break;
+        case '0':
+          zeroPad = true;
+          customPadChar = '0';
+          break;
+        case '#':
+          prefixBaseX = true;
+          break;
+      }
+    }
+
+    // parameters may be null, undefined, empty-string or real valued
+    // we want to ignore null, undefined and empty-string values
+    if (!minWidth) {
+      minWidth = 0;
+    } else if (minWidth === '*') {
+      minWidth = +a[i++];
+    } else if (minWidth.charAt(0) == '*') {
+      minWidth = +a[minWidth.slice(1, -1)];
+    } else {
+      minWidth = +minWidth;
+    }
+
+    // Note: undocumented perl feature:
+    if (minWidth < 0) {
+      minWidth = -minWidth;
+      leftJustify = true;
+    }
+
+    if (!isFinite(minWidth)) {
+      throw new Error('sprintf: (minimum-)width must be finite');
+    }
+
+    if (!precision) {
+      precision = 'fFeE'.indexOf(type) > -1 ? 6 : (type === 'd') ? 0 : undefined;
+    } else if (precision === '*') {
+      precision = +a[i++];
+    } else if (precision.charAt(0) == '*') {
+      precision = +a[precision.slice(1, -1)];
+    } else {
+      precision = +precision;
+    }
+
+    // grab value using valueIndex if required?
+    value = valueIndex ? a[valueIndex.slice(0, -1)] : a[i++];
+
+    switch (type) {
+      case 's':
+        return formatString(String(value), leftJustify, minWidth, precision, zeroPad, customPadChar);
+      case 'c':
+        return formatString(String.fromCharCode(+value), leftJustify, minWidth, precision, zeroPad);
+      case 'b':
+        return formatBaseX(value, 2, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+      case 'o':
+        return formatBaseX(value, 8, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+      case 'x':
+        return formatBaseX(value, 16, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+      case 'X':
+        return formatBaseX(value, 16, prefixBaseX, leftJustify, minWidth, precision, zeroPad)
+          .toUpperCase();
+      case 'u':
+        return formatBaseX(value, 10, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+      case 'i':
+      case 'd':
+        number = +value || 0;
+        number = Math.round(number - number % 1); // Plain Math.round doesn't just truncate
+        prefix = number < 0 ? '-' : positivePrefix;
+        value = prefix + pad(String(Math.abs(number)), precision, '0', false);
+        return justify(value, prefix, leftJustify, minWidth, zeroPad);
+      case 'e':
+      case 'E':
+      case 'f': // Should handle locales (as per setlocale)
+      case 'F':
+      case 'g':
+      case 'G':
+        number = +value;
+        prefix = number < 0 ? '-' : positivePrefix;
+        method = ['toExponential', 'toFixed', 'toPrecision']['efg'.indexOf(type.toLowerCase())];
+        textTransform = ['toString', 'toUpperCase']['eEfFgG'.indexOf(type) % 2];
+        value = prefix + Math.abs(number)[method](precision);
+        return justify(value, prefix, leftJustify, minWidth, zeroPad)[textTransform]();
+      default:
+        return substring;
+    }
+  };
+
+  return format.replace(regex, doFormat);
+}
+/* //sprintf */

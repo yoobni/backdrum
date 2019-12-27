@@ -1,0 +1,287 @@
+/***********************************
+ * Layout
+ ***********************************/
+.wSelect-el {
+	width: 0px;
+	height: 0px;
+	padding: 0px;
+	margin: 0px;
+	border: none;
+	overflow: hidden;
+}
+.wSelect {
+	position: relative;
+	display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align: middle;
+	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.select4 {display:inline-block;margin-left: -5px;}
+.select5 {display:inline-block;margin-left: -5px;}
+.select6 {display:inline-block;margin-left: -5px;}
+
+.select1 .wSelect-arrow,.select2 .wSelect-arrow, .select3 .wSelect-arrow, .select4 .wSelect-arrow, .select5 .wSelect-arrow, .select6 .wSelect-arrow {
+	border-left:1px solid #c1c1c1;
+	position: absolute;
+	width: 23px;
+	right: 0px;
+	top: 0px;
+	height: 100%;
+	background:url('../images/select1.png') no-repeat left 1px;
+	
+}
+.select1 .wSelect-theme-classic .wSelect-options-holder {
+	background-color: #FAFAFA;
+	border: solid #CACACA 1px;
+    width: 149px !important;
+}
+
+.select3 .wSelect-theme-classic .wSelect-options-holder {
+	background-color: #FAFAFA;
+	border: solid #CACACA 1px;
+    width: 148px !important;
+}
+.select4 .wSelect-theme-classic .wSelect-options-holder {
+	background-color: #FAFAFA;
+	border: solid #CACACA 1px;
+    width: 69px !important;
+}
+.select5 .wSelect-theme-classic .wSelect-options-holder {
+	background-color: #FAFAFA;
+	border: solid #CACACA 1px;
+    width: 165px !important;
+}
+.select6 .wSelect-theme-classic .wSelect-options-holder {
+	background-color: #FAFAFA;
+	border: solid #CACACA 1px;
+    width: 125px !important;
+}
+.select1_2 .wSelect-theme-classic .wSelect-options-holder {
+	background-color: #FAFAFA;
+	border: solid #CACACA 1px;
+    width: 303px !important;
+}
+
+.select1 .wSelect-theme-classic.wSelect {
+	border: solid #CCC 1px;
+    color: #555;
+    background-color: #FAFAFA;	
+	font-size: 12px;
+	line-height: 29px;
+	width:149px !important;
+	height:29px !important;
+	margin-right: 8px;
+}
+.select3 .wSelect-theme-classic.wSelect {
+	border: solid #CCC 1px;
+    color: #555;
+    background-color: #FAFAFA;	
+	font-size: 12px;
+	line-height: 29px;
+	width:148px !important;
+	height:29px !important;
+}
+.select4 .wSelect-theme-classic.wSelect {
+	border: solid #CCC 1px;
+    color: #555;
+    background-color: #FAFAFA;	
+	font-size: 12px;
+	line-height: 29px;
+	width:71px !important;
+	height:29px !important;	
+}
+.select5 .wSelect-theme-classic.wSelect {
+	border: solid #CCC 1px;
+    color: #555;
+    background-color: #FAFAFA;	
+	font-size: 12px;
+	line-height: 29px;
+	width:165px !important;
+	height:29px !important;	
+}
+.select6 .wSelect-theme-classic.wSelect {
+	border: solid #CCC 1px;
+    color: #555;
+    background-color: #FAFAFA;	
+	font-size: 12px;
+	line-height: 29px;
+	width:125px !important;
+	height:29px !important;	
+}
+
+
+.select1_2 .wSelect-theme-classic.wSelect {
+	width:303px !important;
+}
+
+.select1 .wSelect-selected, .select3 .wSelect-selected, .select4 .wSelect-selected, .select5 .wSelect-selected, .select6 .wSelect-selected {
+	margin: 0px 35px 0px 5px;
+	overflow: hidden;
+	white-space: nowrap;
+	background-repeat: no-repeat;
+	color: #333;
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.select2 .wSelect-arrow {
+	position: absolute;
+	width: 23px;
+	right: 0px;
+	top: 0px;
+	height: 100%;
+	background:url('../images/select1.png') no-repeat left 1px;
+	
+}
+
+
+.select2 .wSelect-theme-classic.wSelect {
+	border: solid #CCC 1px;
+    color: #555;
+	font-size: 11px;
+
+	line-height: 29px;
+	width:56px !important;
+	height:29px !important;
+}
+
+.select2 .wSelect-selected {
+	text-align:left;
+	overflow: hidden;
+	white-space: nowrap;
+	background-repeat: no-repeat;
+	color: #666;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 29px;
+  padding-left: 3px;
+}
+.select2 .wSelect-theme-classic .wSelect-options-holder {
+	background-color: #FAFAFA;
+	border: solid #CACACA 1px;
+    width: 56px !important;
+}
+
+.wSelect-hover .wSelect-arrow,
+.wSelect-active .wSelect-arrow  {
+	
+}
+.wSelect.wSelect-multiple {
+	overflow: hidden;
+}
+
+.select1 .wSelect-options-holder, .select3 .wSelect-options-holder, .select4 .wSelect-options-holder, .select5 .wSelect-options-holder, .select6 .wSelect-options-holder {
+	position: absolute;
+	display: none;
+	left: -1px;
+	z-index: 200;
+	top:29px !important;
+	overflow: hidden;
+}
+.select2 .wSelect-options-holder {
+	position: absolute;
+	display: none;
+	left: -1px;
+	z-index: 200;
+	top:29px !important;
+	overflow: hidden;
+}
+.wSelect-multiple .wSelect-options-holder {
+	position: relative !important;
+	display: block !important;
+	top: auto !important;
+	z-index: auto !important;
+	border: none !important;
+}
+.wSelect-options {
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.wSelect-option {
+	background-repeat: no-repeat;
+	
+	margin-bottom: 1px;
+	cursor: pointer;
+}
+.wSelect-option-last {
+	margin-bottom: 0px;
+}
+.wSelect-option-value {
+	margin: 0 5px;
+	padding: 5px 0;
+	background-repeat: no-repeat;
+	
+	white-space: nowrap;
+	overflow: hidden;
+}
+.wSelect-option-disabled .wSelect-option-value {
+	filter: alpha(opacity=20);
+	opacity: 0.2;
+}
+.wSelect-option-icon {
+	padding-left: 20px;
+}
+
+/***********************************
+ * Theme - classic
+ ***********************************/
+
+.wSelect-arrow {
+	
+}
+
+
+.wSelect-theme-classic .wSelect-options {
+	border: solid #FAFAFA 1px;
+	border-radius: 4px;
+    -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+.wSelect-theme-classic .wSelect-option {
+	background-color: #FFF;
+	color: #333;
+}
+.wSelect-theme-classic .wSelect-option-disabled {
+	background-color: #FFF !important;
+	color: #333 !important;	
+}
+.wSelect-theme-classic .wSelect-option-selected,
+.wSelect-theme-classic .wSelect-option:hover {
+	background-color: #f5f5f5;
+	color: #4c4c4c;
+}
+
+/***********************************
+ * Labels
+ ***********************************/
+.wLabel-top,
+.wLabel-left,
+.wLabel-left-top {
+    vertical-align: middle;
+    font-size: 10px;
+    line-height: 16px;
+    color: #999;
+    display: block;
+    margin: 5px 0 3px 3px;
+}
+.wLabel-left-top {
+    vertical-align: top;
+}
+@media screen and (min-width: 600px) {
+    .wLabel-left,
+    .wLabel-left-top {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+        width: 70px;
+        text-align: right;
+        margin: 0 0 7px 0;
+    }
+}

@@ -1,0 +1,131 @@
+/*font-set*/
+@charset "utf-8";
+/* web-font*/
+
+/*@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);/*font-family: 'Nanum Gothic';*/
+/*@import url("./font/nanum.css");*/
+@import url("http://fonts.googleapis.com/earlyaccess/nanumgothic.css");
+@font-face{font-family:ng; font-weight:normal; src:url(NanumGothic.eot); src:local(※),url(NanumGothic.woff) format('woff')}
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);/*font-family: 'Nanum Myeongjo', serif;*/
+
+
+/*Reset CSS 1.1*/
+* {
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	outline : 0;
+	font-size: 100%; 
+	-webkit-text-size-adjust: 100%; 
+	-ms-text-size-adjust: 100%; 
+	font: inherit;
+	/*font-family: '나눔고딕', 'NanumGothic', 'NG', '맑은 고딕', 'MalgunGothic', 'MG', 'Dotum', 'Arial', 'sans-serif';*/
+	font-family: 'NanumGothic', 'MalgunGothic', 'Dotum', 'Arial', 'sans-serif';
+	vertical-align: baseline;
+	text-decoration:none;
+	color:#555;
+}
+html,body{width:100%;height:100%; padding:0; margin:0;}
+body {line-height: 1; font-size:12px; color:#555; background-color:#f2f4f7; text-align:left;*word-break:break-all;-ms-word-break:break-all;}
+
+a {color:inherit;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none;}
+button *{position:relative}
+button img{left:-3px;*left:auto}
+button, img, label, input, select  {vertical-align:middle; line-height:normal;}
+button, label{cursor:pointer}
+code, kbd, samp, pre, tt, var, textarea, input, select, isindex, listing, xmp, plaintext {white-space:normal;}
+dt{display:block;}
+hr{display:none;}
+img, video {max-width:100%;}
+legend{*width:0; display:none;}
+ol, ul, dir, menu {list-style: none;}
+table {border-collapse: collapse; border-spacing: 0; width:100%; table-layout:fixed; word-break: break-all;}
+caption {display:none;}
+textarea {overflow: auto; resize: none; white-space:pre}
+.clear:afer {content:""; visibility:hidden; display:block; clear:both; height:0;}
+.hide {font-size:0; line-height:0; overflow:hidden; visibility:hidden; margin-left:-4000em;}
+
+
+/* input, button crossbrowersing */
+	button,
+	html input[type="button"], 
+	input[type="reset"],
+	input[type="submit"] {
+		-webkit-appearance: button; 
+		cursor: pointer; 
+		*overflow: visible;  
+	}
+	button[disabled],
+	input[disabled] {
+		cursor: default;
+	}
+	input[type="checkbox"],
+	input[type="radio"] {
+		box-sizing: border-box; 
+		*height: 13px; 
+		*width: 13px; 
+	}
+	input[type="search"] {
+		-webkit-appearance: textfield; 
+		-moz-box-sizing: content-box;
+		-webkit-box-sizing: content-box;
+		box-sizing: content-box;
+	}
+	input[type="search"]::-webkit-search-cancel-button,
+	input[type="search"]::-webkit-search-decoration {
+		-webkit-appearance: none;
+	}
+
+/*input*/
+
+/*-------------------------------------------*/
+
+/*폰트*/
+
+
+/*table*/
+
+select {border: 1px solid #BCBCBC;}
+
+
+/*텍스트 정렬*/
+.t-center {text-align:center;}
+.t-left {text-align:left;}
+.t-right {text-align:right;}
+.fl-l {float:left;}
+.fl-r {float:right;}
+.fl-l:after, .fl-r:after {content:""; visibility:hidden; display:block; clear:both; height:0;}
+.t-bold {font-weight:bold;}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+/* ======================== LAYOUT ======================================================================== */
+.wrap {height: auto !important; width:1100px; margin:0 auto;  min-height: 100%; position: relative; }
+.layout1 {/*width:998px;*/}
+
+
+
+/* footer */
+#footer-wrap {height:170px; background:#f9f9f9; border:1px solid #ccc; margin-top:14px;}
+.footer1 {width:1000px; margin:0 auto; padding-top:20px; height:79px; border-bottom:1px solid #d8d8d8; padding-left:6px;}
+.foot_link {color:#d2d2d2; font-size:11px; height:21px}
+.foot_link a {display:inline-block; vertical-align:top; color:#848484; font-weight:600; padding:0 14px;}
+.foot_link a:first-child {padding-left:0;}
+.foot_copy {color:#9d9d9d; font-size:11px; line-height:17px;}
+.foot_copy a {display:inline-block; width:85px; height:14px; background:#afafaf; color:#fff; text-align:center; line-height:14px; font-size:11px; font-weight:600;border-radius: 2px; margin-left:10px;}
+.footer2 {width:914px; margin:0 auto; padding-left:6px;}
+.footer2 a {display:inline-block; vertical-align:top; padding-top:13px; margin-right:20px;}
+.footer2 a img {}
+.footer2 a span {display:inline-block; vertical-align:middle; color:#8d8d8d; font-size:11px; line-height:14px; font-weight:600; padding-left:8px;}
+.f_m1 {width:150px;}
+.f_m2 {width:120px}
+.f_m3 {width:104px;}
+.f_m4 {width:150px;}
+.f_m5 {width:160px;}
+
+
+
+
