@@ -1,6 +1,9 @@
-## Bigpicture team Community Site
+# Backdrum
+Facebook Instant Article Community Site
 
-<www.backdrum.net>
 
-수정 문의 -go@bigpicture.team-
 
+#### Bug reporting
+```text
+m4stem4@naver.com
+```
