@@ -1,3 +1,2 @@
-/dev_
-./robots.txt
-./myadmin.php
+dev*
+.DS_Store
